@@ -12,7 +12,15 @@ import FlightDiscounts from './components/subnav/FlightDiscounts.jsx'
 import HotelOffers from './components/subnav/HotelOffers.jsx'
 import ModifyBooking from './components/subnav/ModifyBooking.jsx'
 import UpcomingTrip from './components/subnav/UpcomingTrip.jsx'
+
+import Searchform from './components/Searchform.jsx'
+
 import { createBrowserRouter,  RouterProvider } from 'react-router-dom'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css'
+import "leaflet/dist/leaflet.css";
+
 
 
 
@@ -79,11 +87,16 @@ const router = createBrowserRouter([
     path:'/FlightDiscounts',
 
     element:<FlightDiscounts />,
-  }, {
+  },
+   {
     path:'/HotelOffers',
 
     element:<HotelOffers />,
   },
+  {
+    path:'/Searchform',
+    element:<Searchform />
+  }
 
 
   

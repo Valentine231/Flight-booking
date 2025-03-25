@@ -6,13 +6,13 @@ const useAuth = create((set)=>({
     loading:false,
     error:null,
 
-    login:async({emailorusername,password})=>{
+    login:async({email,password})=>{
         set({loading:true,error:null})
 
-        const isEmail =emailorusername.includes('@')
+        
 
          const { data, error } = await supabase.auth.signInWithPassword({
-            email: isEmail ? emailorusername : null,
+            email,
             password,
           });
         if(error){
@@ -23,14 +23,14 @@ const useAuth = create((set)=>({
         }
     },
 
-    signup:async({email,username,password})=> {
+    signup:async({email,password})=> {
         set({loading:true,error:null})
 
 
-        const {data,error} = await supabase.auth.signup({
+        const { data, error } = await supabase.auth.signUp({
             email,
             password,
-            option:{data:{username}},
+           
         });
 
         if(error){
@@ -47,3 +47,5 @@ const useAuth = create((set)=>({
         set({ user: null });
       },
 }))
+
+export default useAuth;
