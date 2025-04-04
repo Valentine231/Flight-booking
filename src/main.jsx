@@ -14,6 +14,7 @@ import ModifyBooking from './components/subnav/ModifyBooking.jsx'
 import UpcomingTrip from './components/subnav/UpcomingTrip.jsx'
 
 import Searchform from './components/Searchform.jsx'
+import Passenger from './components/Passenger.jsx'
 
 import { createBrowserRouter,  RouterProvider } from 'react-router-dom'
 import { StrictMode } from 'react';
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
   {
     path:'/Searchform',
     element:<Searchform />
+  },
+  {
+    path:'/passenger',
+    element:<Passenger />
   }
 
 
