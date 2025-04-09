@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import useBookingStore from "../Store/Bookingstore";
 import { supabase } from "../Supabase/Supabase"; // Import your Supabase client
 import useAuth from "../Store/Auth";
+import { useNavigate } from 'react-router-dom';
 
 const Passenger = () => {
+   
     const {
         passengers,
         removePassenger,
@@ -15,7 +17,7 @@ const Passenger = () => {
         user
     } = useBookingStore();
 
-    const { user:User, loading:authloading } = useAuth();
+    const { user:User, loading } = useAuth();
    
     const [newPassenger, setNewPassenger] = useState({
         type: 'adult',
@@ -32,9 +34,26 @@ const Passenger = () => {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [bookingSuccess, setBookingSuccess] = useState(false);
+    const navigate = useNavigate();
 
-    if (authloading) return <p className="text-center">Loading...</p>;
-    if (!User) return <p className="text-center">Please log in to view flights.</p>;
+    
+//   if (loading) return <p className="text-center">Loading...</p>;
+  
+//   if (!user || !session) {
+//     return (
+
+//       <div className="text-center py-8">
+//      <h2 className="text-xl font-bold mb-4">Session Expired</h2>
+//         <p>Please log in again to continue your booking</p>
+//          <button 
+//           onClick={() => window.location.href = '/login'}
+//            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+//        >
+//           Go to Login
+//         </button>
+//       </div>
+//     );
+//   }
 
     const validatePassenger = (passenger) => {
         const newErrors = {};
@@ -126,6 +145,8 @@ const Passenger = () => {
             setIsSubmitting(false);
             alert('booking successfull')
         }
+
+        navigate('/paymentroute')
     };
 
     return (

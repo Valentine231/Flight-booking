@@ -16,6 +16,9 @@ import UpcomingTrip from './components/subnav/UpcomingTrip.jsx'
 import Searchform from './components/Searchform.jsx'
 import Passenger from './components/Passenger.jsx'
 
+//payment route
+import Paymentpage from './components/Paymentpage.jsx'
+
 import { createBrowserRouter,  RouterProvider } from 'react-router-dom'
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -101,7 +104,11 @@ const router = createBrowserRouter([
   {
     path:'/passenger',
     element:<Passenger />
-  }
+  },
+  {
+    path:'/paymentroute',
+    element:<Paymentpage />
+  },
 
 
   

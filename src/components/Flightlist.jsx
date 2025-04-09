@@ -1,23 +1,20 @@
 import { useState } from "react";
 import useFlightStore from "../Store/Searchflight";
 import useBookingStore from "../Store/Bookingstore";
-import useAuth from "../Store/Auth";
+
 import { useNavigate } from "react-router-dom";
 
 const FlightList = () => {
-  const {user,loading:Loading} =useAuth()
   const { flights, loading, error } = useFlightStore();
   const { setSelectedFlight } = useBookingStore();
   const [selectedIndex, setSelectedIndex] = useState(null);
   const navigate = useNavigate();
 
-  if(Loading) return <p className="text-center">Loading...</p>;
-  if(!user) return <p className="text-center">Please log in to view flights.</p>;
+ 
 
 
   const handleFlightSelect = (flight, index) => {
-    if(Loading) return <p className="text-center">Loading...</p>;
-    if(!user) return <p className="text-center">Please log in to view flights.</p>;
+   
     setSelectedFlight(flight);
     setSelectedIndex(index);
     navigate('/passenger');
