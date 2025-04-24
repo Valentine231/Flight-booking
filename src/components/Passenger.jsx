@@ -307,10 +307,10 @@ const Passenger = () => {
                 </button>
             </div>
             
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-8">
                 <button 
                     onClick={prevStep}
-                    className="px-6 py-2 border rounded hover:bg-gray-100 transition"
+                    className="px-6 py-2 border rounded hover:bg-gray-100 transition "
                     disabled={isSubmitting}
                 >
                     Back to Flight Selection
