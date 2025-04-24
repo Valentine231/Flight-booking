@@ -134,7 +134,10 @@ const Passenger = () => {
     
             // Now save passenger data
             
-                await passengerData(newPassenger,booking.id); // Pass the booking ID
+            for (const passenger of passengers) {
+                await passengerData(passenger, booking.id);
+            }
+            // Pass the booking ID
             
     
             alert('Booking successful');
@@ -147,23 +150,23 @@ const Passenger = () => {
         }
     };
 
-    const passengerData = async (newPassenger,bookingId) => {
-        if (!newPassenger.dob) {
-            console.warn('Passenger date of birth is required:', newPassenger);
+    const passengerData = async (passenger, bookingId) => {
+        if (!passenger.dob || passenger.dob.trim() === '') {
+            console.warn('Passenger date of birth is required:', passenger);
             return;
         }
     
-        const { data: passenger, error } = await supabase
+        const { data: newpassenger, error } = await supabase
             .from('passengers')
             .insert({
-                booking_id: bookingId, // Ensure bookingId is defined and passed correctly
-                first_name: newPassenger.firstName,
-                last_name: newPassenger.lastName,
-                date_of_birth: newPassenger.dob,
-                gender: newPassenger.gender,
-                passport_number: newPassenger.passport,
-                nationality: newPassenger.nationality,
-                type: newPassenger.type
+                booking_id: bookingId,
+                first_name: passenger.firstName,
+                last_name: passenger.lastName,
+                date_of_birth: passenger.dob,
+                gender: passenger.gender,
+                passport_number: passenger.passport,
+                nationality: passenger.nationality,
+                type: passenger.type
             })
             .select()
             .single();
@@ -172,9 +175,10 @@ const Passenger = () => {
             console.error('Error saving passengers:', error);
             alert(`Failed to save passenger data: ${error.message}`);
         } else {
-            console.log('Passenger data saved:', passenger);
+            console.log('Passenger data saved:', newpassenger);
         }
     };
+    
 
 
     return (
