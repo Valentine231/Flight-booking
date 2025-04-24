@@ -37,23 +37,7 @@ const Passenger = () => {
     const navigate = useNavigate();
 
     
-//   if (loading) return <p className="text-center">Loading...</p>;
-  
-//   if (!user || !session) {
-//     return (
 
-//       <div className="text-center py-8">
-//      <h2 className="text-xl font-bold mb-4">Session Expired</h2>
-//         <p>Please log in again to continue your booking</p>
-//          <button 
-//           onClick={() => window.location.href = '/login'}
-//            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
-//        >
-//           Go to Login
-//         </button>
-//       </div>
-//     );
-//   }
 
     const validatePassenger = (passenger) => {
         const newErrors = {};
@@ -115,20 +99,19 @@ const Passenger = () => {
             return;
         }
     
-        if (!User?.id) {  // Add this check
-            alert('User not authenticated');
+        if (!User ?.id) {
+            alert('User  not authenticated');
             return;
         }
     
         setIsSubmitting(true);
-        
+    
         try {
-            // Use User.id from useAuth instead of user.id from booking store
             const { data: booking, error: bookingError } = await supabase
                 .from('bookings')
                 .insert({
-                    user_id: User.id,  // Changed from user.id to User.id
-                    flight_id: selectedFlight.id,
+                    user_id: User.id,
+                    flight_id:Number(selectedFlight.id),
                     total_price: selectedFlight.price.total,
                     currency: selectedFlight.price.currency,
                     status: 'pending',
@@ -136,18 +119,63 @@ const Passenger = () => {
                 })
                 .select()
                 .single();
+
+                console.log('User ID:', User.id);
+                console.log('Flight ID:', selectedFlight.id);
+    
+            if (bookingError) {
+                console.error('Supabase booking insert error:', bookingError);
+                alert(`Booking failed: ${bookingError.message}`);
+                return;
+            }
+    
+            // Save the booking ID to the store
+            useBookingStore.getState().setBookingId(booking.id);
+    
+            // Now save passenger data
             
-            // ... rest of your booking logic
-        } catch (error) {
-            console.error('Booking error:', error);
-            alert(`Booking failed: ${error.message}`);
+                await passengerData(newPassenger,booking.id); // Pass the booking ID
+            
+    
+            alert('Booking successful');
+            navigate('/paymentroute');
+        // } catch (error) {
+        //     console.error('Booking error:', error);
+        //     alert(`Booking failed: ${error.message}`);
         } finally {
             setIsSubmitting(false);
-            alert('booking successfull')
         }
-
-        navigate('/paymentroute')
     };
+
+    const passengerData = async (newPassenger,bookingId) => {
+        if (!newPassenger.dob) {
+            console.warn('Passenger date of birth is required:', newPassenger);
+            return;
+        }
+    
+        const { data: passenger, error } = await supabase
+            .from('passengers')
+            .insert({
+                booking_id: bookingId, // Ensure bookingId is defined and passed correctly
+                first_name: newPassenger.firstName,
+                last_name: newPassenger.lastName,
+                date_of_birth: newPassenger.dob,
+                gender: newPassenger.gender,
+                passport_number: newPassenger.passport,
+                nationality: newPassenger.nationality,
+                type: newPassenger.type
+            })
+            .select()
+            .single();
+    
+        if (error) {
+            console.error('Error saving passengers:', error);
+            alert(`Failed to save passenger data: ${error.message}`);
+        } else {
+            console.log('Passenger data saved:', passenger);
+        }
+    };
+
 
     return (
         <div className="max-w-4xl mx-auto p-6">

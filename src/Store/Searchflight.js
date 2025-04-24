@@ -1,5 +1,6 @@
 import {create} from 'zustand';
 import { useFlightSearch } from '../AmadeusClient/Client';
+// Zustand store for flight search
 
 const Useflightstore = create((set)=>({
     flights: [],
@@ -14,7 +15,9 @@ const Useflightstore = create((set)=>({
         }else{
             set({error:"No flights found",loading:false});
         }
-    }
+    },
+
+  
 }));
 
 export default Useflightstore

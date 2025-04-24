@@ -6,7 +6,8 @@ import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import { useNavigate } from 'react-router-dom';
 
 const payment =()=>{
-    const { selectedFlight, passengers, prevStep } = useBookingStore();
+    const { selectedFlight, passengers, prevStep, bookingId } = useBookingStore();
+
     const { user, loading: authLoading } = useAuth();
     const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ const payment =()=>{
     if (!selectedFlight) return <div>No flight selected</div>;
     
     const config = {
-        public_key:import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY,
+        public_key:'FLWPUBK_TEST-b2df45663f17ac138a5093224c9d4df7-X',
         tx_ref: Date.now().toString(),
         amount: selectedFlight?.price?.total || 0,
         currency: selectedFlight?.price?.currency || 'USD',
@@ -48,7 +49,7 @@ const payment =()=>{
         console.log(response);
         closePaymentModal();
         // Handle successful payment here
-        if(response.status==='succesful'){
+        if(response.status==='successful'){
             savedPayment(response.transaction_id);
         }
         },
@@ -56,33 +57,30 @@ const payment =()=>{
     });
 
 
-    const savedPayment = async (transactionId) => {
-        const { data, error } = await supabase
-            .from('payments')
-            .insert([
+    const savedPayment = async (transaction_Id) => {
+        const { data,  error:bookingError } = await supabase
+            .from('bookings')
+            .update([
                 {
-                    user_id: user.id,
-                    flight_id: selectedFlight.id,
-                    total_price: selectedFlight.price.total,
-                    currency: selectedFlight.price.currency,
                     status: 'confirmed',
                     payment_status: 'paid',
-                    payment_reference: transactionId,
-                    passengers: passengers
-                },
+                    payment_reference: transaction_Id,
+                   
+                }
             ])
+            .eq('id', bookingId)
             .select()
             .single();
-        
-        try {
-            if (bookingError) throw bookingError;
+    
+        // try {
+        //     if (bookingError) throw bookingError;
             
-            // Navigate to confirmation page or show success message
-            alert('Booking and payment successful!');
-        } catch (error) {
-            console.error('Booking error:', error);
-            alert(`Payment was successful but booking failed: ${error.message}`);
-        }
+        //     // Navigate to confirmation page or show success message
+        //     alert('Booking and payment successful!');
+        // } catch (error) {
+        //     console.error('Booking error:', error);
+        //     alert(`Payment was successful but booking failed: ${error.message}`);
+        // }
     }
 
     return (
