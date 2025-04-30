@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from './Navbar'
 import { ShieldCheck, Headphones, CreditCard, Tag, Star, BadgeCheck,Facebook, Twitter, Instagram, Linkedin  } from "lucide-react";
-
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -67,7 +67,7 @@ const Homepage = () => {
         {/* Hero Section */}
         <div className="relative w-full h-screen flex items-center justify-center text-white">
           <video
-            className="absolute top-0 left-0 w-fit h-full object-cover md:w-full"
+            className="absolute top-0 left-0 w-full h-full object-cover"
             autoPlay
             loop
             muted
@@ -77,16 +77,19 @@ const Homepage = () => {
           </video>
 
           {/* Overlay Content */}
-          <div className="relative z-10 bg-opacity-50 p-6 rounded-lg text-center flex flex-col gap-6 w-full max-w-2xl">
+          <div className="relative z-10 bg-opacity-50 p-4 md:p-6 rounded-lg text-center flex flex-col gap-4 w-full max-w-2xl">
             <h1 className="text-5xl md:text-6xl font-extrabold">
               Welcome to Safe<span className="text-blue-950">~</span>Air
             </h1>
             <p className="text-lg text-blue-950 font-extrabold">
               Experience the best flights around the world.
             </p>
-            <button className='relative z-10 left-23  bg-opacity-50 p-6 rounded-lg text-center shadow-md bg-blue-950 font-extrabold cursor-pointer hover:scale-90 w-50 md:left-50 '>
+            <Link to='/login'>
+            <button className='relative z-10   bg-opacity-50 p-6 rounded-lg text-center shadow-md bg-blue-950 font-extrabold cursor-pointer hover:scale-90 w-50 md:left-10 '>
               Book Now
             </button>
+            </Link>
+            
           </div>
         </div>
         
@@ -104,60 +107,60 @@ const Homepage = () => {
                 </p>
               </div>
               {/* Destination Cards */}
-              <div className="flex flex-col md:flex-row justify-center gap-7 md:relative md:left-[119px] md:gap-0 ">
-                {/* Card 1 */}
-                <div className="overflow-hidden transition-transform transform hover:scale-105 cursor-pointer mx-15">
-                  <img 
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu1zmszW9RjAG1M9LnpFM3RILkJJ3WEHGxmw&s"
-                    alt="Bali, Indonesia"
-                    className="rounded-t-3xl w-70 md:w-80"
-                  />
-                  <div className="bg-white w-70 md:w-80 flex flex-col gap-6 p-4 shadow-lg">
-                    <h1 className="text-3xl text-blue-950 mx-4">Island of the Gods</h1>
-                    <hr className="ml-4"/>
-                    <div className="flex justify-between mx-4 items-center">
-                      <p className="font-extrabold text-gray-400">Discover the Magic of Bali</p>
-                      <p className="font-extrabold text-3xl text-blue-950">»</p>
-                    </div>
-                  </div>
-                </div>
+              <div className="flex flex-col md:flex-row md:justify-center flex-wrap gap-8 px-4 py-10">
+  {/* Card 1 */}
+  <div className="overflow-hidden transition-transform transform hover:scale-105 cursor-pointer max-w-sm w-full bg-white rounded-3xl shadow-lg">
+    <img 
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu1zmszW9RjAG1M9LnpFM3RILkJJ3WEHGxmw&s"
+      alt="Bali, Indonesia"
+      className="rounded-t-3xl w-full h-48 object-cover"
+    />
+    <div className="flex flex-col gap-4 p-4">
+      <h1 className="text-2xl text-blue-950">Island of the Gods</h1>
+      <hr />
+      <div className="flex justify-between items-center">
+        <p className="font-bold text-gray-400">Discover the Magic of Bali</p>
+        <p className="font-extrabold text-3xl text-blue-950">»</p>
+      </div>
+    </div>
+  </div>
 
-                {/* Card 2 */}
-                <div className="overflow-hidden transition-transform transform hover:scale-105 cursor-pointer mx-15">
-                  <img 
-                    src="https://img.freepik.com/premium-photo/romantic-evening-eiffel-tower-city-generative-ai_431161-65555.jpg"
-                    alt="Paris, France"
-                    className=" w-70 md:w-80 h-54 rounded-t-3xl"
-                  />
-                  <div className="bg-white  w-70 md:w-80 flex flex-col gap-6 p-4">
-                    <h1 className="text-3xl text-blue-950 mx-4">City of Love</h1>
-                    <hr className="ml-4"/>
-                    <div className="flex justify-between mx-4 items-center">
-                      <p className="font-extrabold text-gray-400">Experience La Vie En Rose</p>
-                      <p className="font-extrabold text-3xl text-blue-950">»</p>
-                    </div>
-                  </div>
-                </div>
+  {/* Card 2 */}
+  <div className="overflow-hidden transition-transform transform hover:scale-105 cursor-pointer max-w-sm w-full bg-white rounded-3xl shadow-lg">
+    <img 
+      src="https://img.freepik.com/premium-photo/romantic-evening-eiffel-tower-city-generative-ai_431161-65555.jpg"
+      alt="Paris, France"
+      className="rounded-t-3xl w-full h-48 object-cover"
+    />
+    <div className="flex flex-col gap-4 p-4">
+      <h1 className="text-2xl text-blue-950">City of Love</h1>
+      <hr />
+      <div className="flex justify-between items-center">
+        <p className="font-bold text-gray-400">Experience La Vie En Rose</p>
+        <p className="font-extrabold text-3xl text-blue-950">»</p>
+      </div>
+    </div>
+  </div>
 
-                {/* Card 3 */}
-                <div className="overflow-hidden transition-transform transform hover:scale-105 cursor-pointer mx-15">
-                  <img 
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_KSMMu85hgm1tzjOw9vEs3v0UPhe8N049Fe7hagRRIdUy9IOsoivu3sbD_Ibbr6Yev-8&usqp=CAU"
-                    alt="Tropical Paradise"
-                    className="rounded-t-3xl w-70 md:w-80 h-54"
-                  />
-                  <div className="bg-white w-70 md:w-80 flex flex-col gap-6 p-4">
-                    <h1 className="text-3xl text-blue-950 mx-4">Tropical Paradise</h1>
-                    <hr className="ml-4"/>
-                    <div className="flex justify-between mx-4 items-center">
-                      <p className="font-extrabold text-gray-400">Tropical Bliss, Endless Adventure</p>
-                      <p className="font-extrabold text-3xl text-blue-950">»</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  {/* Card 3 */}
+  <div className="overflow-hidden transition-transform transform hover:scale-105 cursor-pointer max-w-sm w-full bg-white rounded-3xl shadow-lg">
+    <img 
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_KSMMu85hgm1tzjOw9vEs3v0UPhe8N049Fe7hagRRIdUy9IOsoivu3sbD_Ibbr6Yev-8&usqp=CAU"
+      alt="Tropical Paradise"
+      className="rounded-t-3xl w-full h-48 object-cover"
+    />
+    <div className="flex flex-col gap-4 p-4">
+      <h1 className="text-2xl text-blue-950">Tropical Paradise</h1>
+      <hr />
+      <div className="flex justify-between items-center">
+        <p className="font-bold text-gray-400">Tropical Bliss, Endless Adventure</p>
+        <p className="font-extrabold text-3xl text-blue-950">»</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
         </div>
         <section className="bg-gray-100 py-12 w-full mt-30 flex flex-col gap-30">
           <div className="max-w-6xl mx-auto px-6 text-center gap-0 flex flex-col">
@@ -224,10 +227,10 @@ const Homepage = () => {
             <div>
               <h3 className="text-lg font-semibold mb-3">Follow Us</h3>
               <div className="flex space-x-4">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.facebook.com/ugwu.valentine.796*7" target="_blank" rel="noopener noreferrer">
                   <Facebook className="w-6 h-6 hover:text-blue-500" />
                 </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://twitter.com/val09797539?t=D_2D-UiPTTO_CrkSH5Z4sw&s=09" target="_blank" rel="noopener noreferrer">
                   <Twitter className="w-6 h-6 hover:text-blue-400" />
                 </a>
                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">

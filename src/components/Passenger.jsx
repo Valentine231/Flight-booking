@@ -120,8 +120,7 @@ const Passenger = () => {
                 .select()
                 .single();
 
-                console.log('User ID:', User.id);
-                console.log('Flight ID:', selectedFlight.id);
+               
     
             if (bookingError) {
                 console.error('Supabase booking insert error:', bookingError);
@@ -307,7 +306,7 @@ const Passenger = () => {
                 </button>
             </div>
             
-            <div className="flex justify-between gap-8">
+            <div className="flex justify-between gap-10 md:gap-10">
                 <button 
                     onClick={prevStep}
                     className="px-6 py-2 border rounded hover:bg-gray-100 transition "

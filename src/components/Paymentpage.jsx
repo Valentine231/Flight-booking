@@ -25,7 +25,7 @@ const payment =()=>{
     if (!selectedFlight) return <div>No flight selected</div>;
     
     const config = {
-        public_key:'FLWPUBK_TEST-b2df45663f17ac138a5093224c9d4df7-X',
+        public_key:import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY,
         tx_ref: Date.now().toString(),
         amount: selectedFlight?.price?.total || 0,
         currency: selectedFlight?.price?.currency || 'USD',
@@ -109,13 +109,14 @@ const payment =()=>{
                 </div>
             </div>
             
-            <div className="flex justify-between">
+            <div className="flex justify-between md:gap-10">
                 <button 
                     onClick={prevStep}
                     className="px-6 py-2 border rounded hover:bg-gray-100 transition"
                 >
                     Back to Passenger Details
                 </button>
+
                 <button 
                     onClick={ handleFlutterPayment}
                     className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
