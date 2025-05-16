@@ -5,6 +5,7 @@ import Flightlist from './Flightlist'
 const Searchform = () => {
     const {search} = useflightstore();
     const [origin,setOrigin] = useState("");
+    
     const [destination,setDestination] = useState("");
     const [date, setDate]=useState("")
     const [showFlightlist, setShowFlightlist] = useState(false);
@@ -20,12 +21,12 @@ const Searchform = () => {
   return (
     <div className='w-full flex flex-col md:flex-row'>
     {/* Search Form */}
-    <section className={`w-full  md:w-1/2 min-h-screen bg-blue-400  ${showFlightlist && 'hidden md:block'}`}>
+    <section className={`w-full  md:w-1/2 min-h-screen bg-blue-950 relative ${showFlightlist && 'hidden md:block'}`}>
         <form 
-            className='flex flex-col p-4 w-[90%]  md:w-[50%] justify-center items-center mx-auto mt-10 bg-white rounded-lg '
+            className='flex flex-col p-6 w-[90%] ml-30  md:w-[30%] justify-center items-center mx-auto mt-43 bg-white rounded-lg fixed '
             onSubmit={handlesearch}
         >
-            <h2 className='text-center text-2xl text-gray-900'>Search Flight</h2>
+            <h2 className='text-center text-2xl text-gray-950'>Search Flight</h2>
             <input
                 type="text"
                 placeholder="Origin (e.g., JFK)"
@@ -46,7 +47,7 @@ const Searchform = () => {
                 onChange={(e) => setDate(e.target.value)}
                 className="border p-2 w-full"
             />
-            <button type='submit' className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full mt-3">
+            <button type='submit' className="bg-blue-950 text-white px-4 py-2 rounded-lg w-full mt-3 cursor-pointer">
                 Search Flights
             </button>
         </form>

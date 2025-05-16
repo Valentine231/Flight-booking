@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 
 app.get('/api/hotels', async (req, res) => {
-  const { cityCode = 'PAR', checkInDate = '2025-06-15', checkOutDate = '2025-06-18' } = req.query;
+  const { cityCode = 'LON', checkInDate = '2025-06-15', checkOutDate = '2025-06-18' } = req.query;
 
   try {
     console.log('Fetching Amadeus token...');

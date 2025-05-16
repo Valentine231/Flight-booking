@@ -44,18 +44,31 @@ const Passenger = () => {
         if (!passenger.firstName.trim()) newErrors.firstName = 'First name is required';
         if (!passenger.lastName.trim()) newErrors.lastName = 'Last name is required';
         if (!passenger.dob) newErrors.dob = 'Date of birth is required';
-        if (passenger.type === 'child' && !passenger.dob) {
+        else {
             const age = calculateAge(passenger.dob);
-            if (age > 12) newErrors.dob = 'Child must be under 12 years old';
+    
+            if (passenger.type === 'infant' && age >= 2) {
+                newErrors.dob = 'Infant must be under 2 years old';
+            } else if (passenger.type === 'child' && (age < 2 || age >= 12)) {
+                newErrors.dob = 'Child must be between 2 and 11 years old';
+            } else if (passenger.type === 'adult' && age < 12) {
+                newErrors.dob = 'Adult must be 12 years or older';
+            }
         }
         return newErrors;
     };
 
     const calculateAge = (dob) => {
         const birthDate = new Date(dob);
-        const difference = Date.now() - birthDate.getTime();
-        const age = new Date(difference);
-        return Math.abs(age.getUTCFullYear() - 1970);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+    
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+    
+        return age;
     };
 
     const handleAddPassenger = () => {
@@ -300,7 +313,7 @@ const Passenger = () => {
                 
                 <button 
                     onClick={handleAddPassenger}
-                    className="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                    className="mt-4 px-6 py-2 bg-blue-950 text-white rounded hover:bg-gray-700 transition"
                 >
                     Add Passenger
                 </button>

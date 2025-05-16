@@ -2,6 +2,7 @@ import { useState } from "react";
 import useFlightStore from "../Store/Searchflight";
 import useBookingStore from "../Store/Bookingstore";
 import { useNavigate } from "react-router-dom";
+import {ClipLoader} from "react-spinners";
 
 const FlightList = () => {
   const { flights, loading, error } = useFlightStore();
@@ -15,7 +16,7 @@ const FlightList = () => {
     navigate("/passenger");
   };
 
-  if (loading) return <p className="text-center mt-8">Loading flights...</p>;
+  if (loading) return <p className="text-center mt-8"><ClipLoader color="blue" size={26} /></p>;
   if (error) return <p className="text-red-500 text-center mt-8">{error}</p>;
 
   return (
@@ -33,7 +34,7 @@ const FlightList = () => {
               key={`${flight.id}-${index}`}
               className={`border p-6 mb-6 rounded-lg shadow-md cursor-pointer transition-all ${
                 selectedIndex === index
-                  ? "bg-blue-50 border-blue-500 ring-2 ring-blue-300"
+                  ? "bg-blue-50 border-blue-950 ring-2 ring-blue-300"
                   : "hover:bg-gray-50"
               }`}
               onClick={() => handleFlightSelect(flight, index)}
@@ -43,7 +44,7 @@ const FlightList = () => {
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="bg-gray-100 p-2 rounded-full">
-                      <span className="font-semibold text-blue-600">{airline}</span>
+                      <span className="font-semibold text-blue-950">{airline}</span>
                     </div>
                     <span className="text-sm text-gray-500">Flight {flightNumber}</span>
                   </div>
@@ -80,11 +81,11 @@ const FlightList = () => {
 
                 {/* Price and Select Button */}
                 <div className="flex flex-col items-end justify-between md:items-end">
-                  <p className="text-3xl font-bold text-blue-600 mb-3 md:mb-2">
+                  <p className="text-3xl font-bold text-blue-950 mb-3 md:mb-2">
                     ${flight.price.total}
                   </p>
                   <button
-                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                    className="px-6 py-2 bg-blue-950 text-white rounded-lg hover:bg-gray-700 transition cursor-pointer"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleFlightSelect(flight, index);
